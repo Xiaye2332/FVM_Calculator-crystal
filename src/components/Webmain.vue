@@ -13,9 +13,13 @@
 
     <el-form ref="form" label-width="100px">
       <el-form-item label="宝石初始星">
-        <el-input v-model="initialstar" oninput="this.value = this.value.replace(/[^0-9]/g, '');" style="width: 100px;">
-          <template #append>星</template>
-        </el-input>
+        <el-input-number v-model="initialstar" style="width: 100px;" :min="0" :max="14" :step="1" step-strictly
+                         @change="setInitial()"/>
+      </el-form-item>
+      <el-form-item label="宝石目标星">
+        <el-input-number v-model="finalstar" style="width: 100px;" :min="finalstarmin" :max="finalstarmax" :step="1"
+                         step-strictly @change="setFinal()"/>
+        <span readonly="true" v-html="final_star_explain"></span>
       </el-form-item>
       <el-form-item label="成功率加成">
         <el-input v-model="bonus" oninput="this.value = this.value.replace(/[^0-9]/g, '');" style="width: 100px;">
@@ -24,6 +28,9 @@
       </el-form-item>
       <el-form-item label="四叶草选择">
         <el-select v-model="clover1" class="m-2" placeholder="1升2">
+          <el-option-group
+              :label='"1升2"'
+          />
           <el-option
               v-for="item in options"
               :key="item.value"
@@ -32,6 +39,9 @@
           />
         </el-select>
         <el-select v-model="clover2" class="m-2" placeholder="2升3">
+          <el-option-group
+              :label='"2升3"'
+          />
           <el-option
               v-for="item in options"
               :key="item.value"
@@ -40,6 +50,9 @@
           />
         </el-select>
         <el-select v-model="clover3" class="m-2" placeholder="3升4">
+          <el-option-group
+              :label='"3升4"'
+          />
           <el-option
               v-for="item in options"
               :key="item.value"
@@ -48,6 +61,9 @@
           />
         </el-select>
         <el-select v-model="clover4" class="m-2" placeholder="4升5">
+          <el-option-group
+              :label='"4升5"'
+          />
           <el-option
               v-for="item in options"
               :key="item.value"
@@ -56,6 +72,9 @@
           />
         </el-select>
         <el-select v-model="clover5" class="m-2" placeholder="5升6">
+          <el-option-group
+              :label='"5升6"'
+          />
           <el-option
               v-for="item in options"
               :key="item.value"
@@ -64,6 +83,9 @@
           />
         </el-select>
         <el-select v-model="clover6" class="m-2" placeholder="6升7">
+          <el-option-group
+              :label='"6升7"'
+          />
           <el-option
               v-for="item in options"
               :key="item.value"
@@ -72,6 +94,9 @@
           />
         </el-select>
         <el-select v-model="clover7" class="m-2" placeholder="7升8">
+          <el-option-group
+              :label='"7升8"'
+          />
           <el-option
               v-for="item in options"
               :key="item.value"
@@ -80,6 +105,9 @@
           />
         </el-select>
         <el-select v-model="clover8" class="m-2" placeholder="8升9">
+          <el-option-group
+              :label='"8升9"'
+          />
           <el-option
               v-for="item in options"
               :key="item.value"
@@ -88,6 +116,9 @@
           />
         </el-select>
         <el-select v-model="clover9" class="m-2" placeholder="9升10">
+          <el-option-group
+              :label='"9升10"'
+          />
           <el-option
               v-for="item in options"
               :key="item.value"
@@ -96,6 +127,9 @@
           />
         </el-select>
         <el-select v-model="clover10" class="m-2" placeholder="10升11">
+          <el-option-group
+              :label='"10升11"'
+          />
           <el-option
               v-for="item in options"
               :key="item.value"
@@ -104,6 +138,9 @@
           />
         </el-select>
         <el-select v-model="clover11" class="m-2" placeholder="11升12">
+          <el-option-group
+              :label='"11升12"'
+          />
           <el-option
               v-for="item in options"
               :key="item.value"
@@ -112,6 +149,9 @@
           />
         </el-select>
         <el-select v-model="clover12" class="m-2" placeholder="12升13">
+          <el-option-group
+              :label='"12升13"'
+          />
           <el-option
               v-for="item in options"
               :key="item.value"
@@ -120,6 +160,9 @@
           />
         </el-select>
         <el-select v-model="clover13" class="m-2" placeholder="13升14">
+          <el-option-group
+              :label='"13升14"'
+          />
           <el-option
               v-for="item in options"
               :key="item.value"
@@ -128,6 +171,9 @@
           />
         </el-select>
         <el-select v-model="clover14" class="m-2" placeholder="14升15">
+          <el-option-group
+              :label='"14升15"'
+          />
           <el-option
               v-for="item in options"
               :key="item.value"
@@ -148,10 +194,27 @@
         <el-checkbox v-model="insurance14" label="上15" size="large"/>
       </el-form-item>
 
+
       <el-form-item>
+        <el-button :icon="Star" type="primary" @click="Recommend()">一键勾选
+        </el-button>
+
+      </el-form-item>
+      <!--      <el-form-item>-->
+      <!--        <el-button :icon="Setting" type="primary" @click="test()">推荐四叶草(这个功能仅用于测试，正式版不会出现)-->
+      <!--        </el-button>-->
+
+      <!--      </el-form-item>-->
+      <el-form-item>
+        <el-button :icon="MagicStick" type="primary" @click="clearClover()">清空四叶草
+        </el-button>
+      </el-form-item>
+      <el-form-item>
+
         <el-button :icon="EditPen" type="primary" @click="Calculate()">计算
         </el-button>
       </el-form-item>
+
       <br>
       <el-divider><p id="result" style="font-size: 18px;font-weight: bold">计算结果</p></el-divider>
       <br>
@@ -181,20 +244,36 @@
         <img id="D" style="visibility: hidden" src="src/assets/imgs/D.png">
       </el-form-item>
 
+      <el-form-item label="保险节省量">
+        <img style="visibility: hidden" src="src/assets/imgs/transparent.png">
+        <img style="visibility: hidden;position: absolute" id="normal1" src="src/assets/imgs/0x12700010.png">
+        <img style="visibility: hidden;position: absolute" id="abnormal1" src="src/assets/imgs/0x12700120.png">
+        <span readonly="true" v-html="insurancesave"></span>
+      </el-form-item>
+
+      <el-form-item label="节省水晶价">
+        <span readonly="true" v-html="insurancesaved"></span>
+      </el-form-item>
+
+
     </el-form>
 
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 
 import {ref} from "vue";
-import {EditPen} from "@element-plus/icons-vue";
+import {EditPen, Star, MagicStick} from "@element-plus/icons-vue";
 
 //const star = ref("");  //星级变量
 //const num = ref("");   //卡牌数变量
 const bonus = ref("");  //成功率加成变量
 const initialstar = ref("0");  //宝石初始星级
+const finalstar = ref("0");
+const finalstarmin = ref("1");
+const finalstarmax = ref("15");//宝石目标星级
+const final_star_explain = ref("");
 const clover1 = ref(""); //定义四叶草变量
 const clover2 = ref("");
 const clover3 = ref("");
@@ -214,10 +293,10 @@ const insurance7 = ref(false)
 const insurance8 = ref(false)
 const insurance9 = ref(false)
 const insurance10 = ref(false)
-const insurance11 = ref(true)
-const insurance12 = ref(true)
-const insurance13 = ref(true)
-const insurance14 = ref(true)
+const insurance11 = ref(false)
+const insurance12 = ref(false)
+const insurance13 = ref(false)
+const insurance14 = ref(false)
 const normalcost = ref("")
 const abnormalcost = ref("")
 const pointcost = ref("")
@@ -225,9 +304,10 @@ const scost = ref("")
 const sscost = ref("")
 const ssscost = ref("")
 const ssrcost = ref("")
+const insurancesave = ref("")
+const insurancesaved = ref("")
 
 
-//定义四叶草标签名和实际值，value即为cloverx.value直接引出值
 const options = [
   {
     value: 1.0,
@@ -273,6 +353,7 @@ const options = [
     value: 4,
     label: 'SSR四叶草',
   },
+
 ]
 //定义概率表，宝石主卡为0-15rate[0]-rate[14]
 const rate = [1, 0.88, 0.75, 0.63, 0.5, 0.38, 0.26, 0.19, 0.13, 0.10, 0.09, 0.08, 0.07, 0.06, 0.05]
@@ -280,7 +361,28 @@ const rate = [1, 0.88, 0.75, 0.63, 0.5, 0.38, 0.26, 0.19, 0.13, 0.10, 0.09, 0.08
 //定义宝石消耗表
 const crystalcost = [5, 10, 15, 25, 35, 55, 75, 100, 130, 160, 200, 245, 300, 355, 420]
 const insurancecost = [0, 0, 0, 0, 0, 0, 400, 500, 600, 2500, 3000, 3500, 4000, 4500, 5000]
+const no_insurance = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]
 
+function setInitial() {
+  finalstarmin.value = initialstar.value + 1;
+  finalstar.value = (initialstar.value >= 10) ? String(15) : String(10);
+  finalstarmax.value = (initialstar.value >= 10) ? String(15) : String(10);
+  if (initialstar.value < 10 && finalstar.value == 10) {
+    final_star_explain.value = "&emsp;初始星低于10时目标星不能超过10";
+  }
+  if (initialstar.value >= 10) {
+    final_star_explain.value = "";
+  }
+}
+
+function setFinal() {
+  if (initialstar.value >= finalstar.value) {
+    initialstar.value = String(finalstar.value - 1);
+  }
+  if (finalstar.value > 10 && initialstar.value < 10) {
+    initialstar.value = "10";
+  }
+}
 
 //打开消息提示框
 import {ElMessageBox} from 'element-plus'
@@ -292,22 +394,31 @@ window.onload = function open() {
   })
 }
 //问卷调查
-const success = () => {
+const success = (title, text) => {
   ElNotification({
-    title: '计算完成',
+    title: title,
     dangerouslyUseHTMLString: true,
-    message: '当前为测试版本，如遇任何问题请直接提出',
+    message: text,
     type: 'success',
     duration: 3000,
   })
 }
-const exeception = (text) => {
+const exeception = (title, text) => {
   ElNotification({
-    title: '计算出错',
+    title: title,
     dangerouslyUseHTMLString: true,
     message: text,
     type: 'error',
     duration: 3000,
+  })
+}
+const info = (title, text) => {
+  ElNotification({
+    title: title,
+    dangerouslyUseHTMLString: true,
+    message: text,
+    type: 'info',
+    duration: 1500,
   })
 }
 
@@ -319,11 +430,59 @@ const rateValid = (rate) => {
   }
 }
 
+//填入推荐参数函数
+function Recommend() {
+  if (!(insurance6.value && insurance7 && insurance8 && insurance9 && insurance10 && insurance11 && insurance12 && insurance13 && insurance14)) {
+    insurance6.value = true;
+    insurance7.value = true;
+    insurance8.value = true;
+    insurance9.value = true;
+    insurance10.value = true;
+    insurance11.value = true;
+    insurance12.value = true;
+    insurance13.value = true;
+    insurance14.value = true;
+  } else {
+    insurance6.value = false;
+    insurance7.value = false;
+    insurance8.value = false;
+    insurance9.value = false;
+    insurance10.value = false;
+    insurance11.value = false;
+    insurance12.value = false;
+    insurance13.value = false;
+    insurance14.value = false;
+  }
+  info("勾选完成", "已为你勾选所有保险");
+}
+
+//测试函数
+
+
+//清空四叶草情况
+function clearClover() {
+  clover1.value = "";
+  clover2.value = "";
+  clover3.value = "";
+  clover4.value = "";
+  clover5.value = "";
+  clover6.value = "";
+  clover7.value = "";
+  clover8.value = "";
+  clover9.value = "";
+  clover10.value = "";
+  clover11.value = "";
+  clover12.value = "";
+  clover13.value = "";
+  clover14.value = "";
+  info("清除完成", "已清除所有四叶草")
+}
+
 //入口函数
 function Calculate() {
   //判断条件
   if (initialstar.value >= 15) {
-    exeception("宝石初始星级不合法");
+    exeception("计算出错", "宝石初始星级不合法");
     initialstar.value = "";
     return;
   }
@@ -335,39 +494,57 @@ function Calculate() {
   //点券计算部分
   var star;
   var totalpoint = 0;
-  var flag = (initialstar.value >= 10) ? 14 : 9;
-  for (star = initialstar.value; star <= flag; star++) {
+  for (star = initialstar.value; star <= finalstar.value - 1; star++) {
     if (!insurance[star]) continue;
     totalpoint += (1 / rateCalculate(star) * insurancecost[star]);
   }
   //水晶计算部分
-  var abnormal = abnormalCrystalCalculate(initialstar.value * 1, 14, insurance);
-  var normal = normalCrystalCalculate(initialstar.value * 1, 9, insurance);
+  var abnormal = abnormalCrystalCalculate(initialstar.value, finalstar.value - 1, insurance);
+  var normal = normalCrystalCalculate(initialstar.value, finalstar.value - 1, insurance);
   //四叶草计算部分
-  var clovers = cloverCalculateS(initialstar.value, flag, insurance);
-  var cloverss = cloverCalculateSS(initialstar.value, flag, insurance);
-  var cloversss = cloverCalculateSSS(initialstar.value, flag, insurance);
-  var cloverssr = cloverCalculateSSR(initialstar.value, flag, insurance);
-  ShowResult(totalpoint, normal, abnormal, clovers, cloverss, cloversss, cloverssr);
+  var clovers = cloverCalculateS(initialstar.value, finalstar.value - 1, insurance);
+  var cloverss = cloverCalculateSS(initialstar.value, finalstar.value - 1, insurance);
+  var cloversss = cloverCalculateSSS(initialstar.value, finalstar.value - 1, insurance);
+  var cloverssr = cloverCalculateSSR(initialstar.value, finalstar.value - 1, insurance);
+  //保险节省量
+
+  var abnormalcrystalsave;
+  abnormalcrystalsave = abnormalCrystalCalculate(initialstar.value, finalstar.value - 1, no_insurance) * 1.0 - abnormal * 1.0;
+
+  var normalcrystalsave;
+  normalcrystalsave = normalCrystalCalculate(initialstar.value, finalstar.value - 1, no_insurance) * 1.0 - normal * 1.0;
+
+
+  ShowResult(totalpoint, normal, abnormal, clovers, cloverss, cloversss, cloverssr, normalcrystalsave, abnormalcrystalsave);
 
 
 }
 
-function ShowResult(d, normal, abnormal, clovers, cloverss, cloversss, cloverssr) {
-  if (initialstar.value >= 10) {
+function ShowResult(d, normal, abnormal, clovers, cloverss, cloversss, cloverssr, normalcrystalsave, abnormalcrystalsave) {
+  if (initialstar.value >= 10) { //上15情况
     document.getElementById("abnormal").style.visibility = "visible";
+    document.getElementById("abnormal1").style.visibility = "visible";
     abnormalcost.value = "x" + String(Math.round(abnormal));
     document.getElementById("normal").style.visibility = "hidden";
+    document.getElementById("normal1").style.visibility = "hidden";
     normalcost.value = "";
-    document.getElementById("result").innerHTML = "从<img id='initialstar'</img>上<img src='/src/assets/imgs/15.png'</img>需要"
+    document.getElementById("result").innerHTML = "从<img id='initialstar'</img>上<img id='finalstar'</img>需要"
     document.getElementById("initialstar").src = '/src/assets/imgs/' + initialstar.value + '.png'
-  } else {
+    document.getElementById("finalstar").src = '/src/assets/imgs/' + finalstar.value + '.png'
+    insurancesave.value = "x" + String(Math.round(abnormalcrystalsave));
+    insurancesaved.value = String(Math.floor(d / abnormalcrystalsave * 100) / 100) + "点券/个";
+  } else { //上10情况
     document.getElementById("normal").style.visibility = "visible";
+    document.getElementById("normal1").style.visibility = "visible";
     normalcost.value = "x" + String(Math.round(normal));
     document.getElementById("abnormal").style.visibility = "hidden";
+    document.getElementById("abnormal1").style.visibility = "hidden";
     abnormalcost.value = "";
-    document.getElementById("result").innerHTML = "从<img id='initialstar'</img>上<img src='/src/assets/imgs/10.png'</img>需要"
+    document.getElementById("result").innerHTML = "从<img id='initialstar'</img>上<img id='finalstar'</img>需要"
     document.getElementById("initialstar").src = '/src/assets/imgs/' + initialstar.value + '.png'
+    document.getElementById("finalstar").src = '/src/assets/imgs/' + finalstar.value + '.png'
+    insurancesave.value = "x" + String(Math.round(normalcrystalsave));
+    insurancesaved.value = String(Math.floor(d / normalcrystalsave * 100) / 100) + "点券/个";
   }
   if (clovers || cloverss || cloversss || cloverssr) {
     document.getElementById("noconsume").style.visibility = "hidden";
@@ -379,8 +556,7 @@ function ShowResult(d, normal, abnormal, clovers, cloverss, cloversss, cloverssr
     sscost.value = "<br>x" + String(Math.floor(cloverss * 100) / 100);
     ssscost.value = "<br>x" + String(Math.floor(cloversss * 100) / 100);
     ssrcost.value = "<br>x" + String(Math.floor(cloverssr * 100) / 100);
-  }
-  else {
+  } else {
     document.getElementById("noconsume").style.visibility = "visible";
     document.getElementById("S").style.visibility = "hidden";
     document.getElementById("SS").style.visibility = "hidden";
@@ -399,7 +575,7 @@ function ShowResult(d, normal, abnormal, clovers, cloverss, cloversss, cloverssr
     pointcost.value = "0";
     document.getElementById("D").style.visibility = "visible";
   }
-  success()
+  success("计算成功", "当前版本RC1.0");
 }
 
 function rateCalculate(mainstar) {
