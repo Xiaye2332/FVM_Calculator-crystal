@@ -44,7 +44,7 @@ const isDark = useDark()
       src="https://img.shields.io/badge/Github-FVM_Calculator%20v1.3-purple"></a></span>
   <el-divider></el-divider>
   <h5>更新日志:</h5>
-  <span class="notice">2023/2/19 &nbsp;Beta版发布<br>2023/2/20 &nbsp;新增了节省水晶提示和节省水晶的价值提示<br>2023/2/21 &nbsp;现可以在四叶草下拉框内查看所选四叶草对应的卡牌等级<br>2023/2/22 &nbsp;RC版发布，新增了可选目标星级功能<br><br></span>
+  <span class="notice">2023/2/19 &nbsp;Beta版发布<br>2023/2/20 &nbsp;新增了节省水晶提示和节省水晶的价值提示<br>2023/2/21 &nbsp;现可以在四叶草下拉框内查看所选四叶草对应的卡牌等级<br>2023/2/22 &nbsp;RC版发布，新增了可选目标星级功能<br>2023/2/22 &nbsp;正式版发布<br><br><br></span>
 </template>
 
 <style scoped>

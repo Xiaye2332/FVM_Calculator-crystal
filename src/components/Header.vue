@@ -1,5 +1,5 @@
 <template>
-<h1 class="header">宝石强化最优路径计算器(RC版)</h1>
+<h1 class="header">宝石强化最优路径计算器 | <el-link href="http://www.msdzls.cn:7777" type="primary">卡片计算器</el-link></h1>
 </template>
 
 

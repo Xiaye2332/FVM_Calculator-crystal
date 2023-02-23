@@ -315,15 +315,15 @@ const options = [
   },
   {
     value: 1.2,
-    label: '1级四叶草',
+    label: '1级四叶草 [1.2]',
   },
   {
     value: 1.4,
-    label: '2级四叶草',
+    label: '2级四叶草 [1.4]',
   },
   {
     value: 1.7,
-    label: '3级四叶草',
+    label: '3级四叶草 [1.7]',
   },
   {
     value: 2.0,
