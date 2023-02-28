@@ -13,7 +13,7 @@ const isDark = useDark()
     </el-form-item>
   </el-form>
   <h5>说明:</h5>
-  <span class="notice">1.计算结果为通过计算机模拟大量样本情况下的最终结果，其中宝石和点券消耗取整数，四叶草消耗取两位小数<br>2.若宝石初始星低于10，程序会计算将宝石强化到10星的材料消耗；若宝石星级大于等于10，程序会计算将宝石强化到15星的材料消耗<br>3.成功率加成为打开背包后鼠标移动到“属性加成”区域显示的“卡片成功率+ xx%”字样。本程序认为游戏中给出的概率表示实际上为相加关系，例如“80%+20%”会作为100%处理<br>4.保险节省量是在面板显示的保险情况下，通过点保险可以节省的水晶；节省水晶价是上述节省的水晶/保险需要消耗的点券。其中保险节省量保留整数，节省水晶价保留两位小数<br> 如果你任何有疑问或建议，欢迎参加我们的<a
+  <span class="notice">1.计算结果为通过计算机模拟大量样本情况下的最终结果<br>2.成功率加成为打开背包后鼠标移动到“属性加成”区域显示的“卡片成功率+ xx%”字样<br>3.保险节省量是在面板显示的保险情况下，通过点保险可以节省的水晶<br>4.节省水晶价是上述节省的水晶除以保险需要消耗的点券<br><br> 如果你任何有疑问或建议，欢迎参加我们的<a
       href="https://survey.xiayeqz.com:3999/s/QEFoBL" target="_blank" style="color: #409EFF">问卷调查</a></span>
   <el-divider></el-divider>
   <h5>贡献者:</h5>
@@ -41,10 +41,10 @@ const isDark = useDark()
   </a>
   <span class="notice"><br><br>本页面遵照GPLv3协议开放源代码，您可以自由传播和修改，转载请注明作者和出处<br><a
       href="https://github.com/Xiaye2332/FVM_Calculator-crystal" target="_blank"><img
-      src="https://img.shields.io/badge/Github-FVM_Calculator%20v1.3-purple"></a></span>
+      src="https://img.shields.io/badge/Github-FVM_Calculator_crystal%20v1.1-red"></a></span>
   <el-divider></el-divider>
   <h5>更新日志:</h5>
-  <span class="notice">2023/2/19 &nbsp;Beta版发布<br>2023/2/20 &nbsp;新增了节省水晶提示和节省水晶的价值提示<br>2023/2/21 &nbsp;现可以在四叶草下拉框内查看所选四叶草对应的卡牌等级<br>2023/2/22 &nbsp;RC版发布，新增了可选目标星级功能<br>2023/2/22 &nbsp;正式版发布<br><br><br></span>
+  <span class="notice">2023/2/19 &nbsp;Beta版发布<br>2023/2/22 &nbsp;RC版发布，新增了可选目标星级功能，在四叶草下拉框内查看所选四叶草对应的卡牌等级<br>2023/2/22 &nbsp;v1.0 正式版发布<br>2023/2/28 &nbsp;v1.1 简洁化了部分说明<br><br><br></span>
 </template>
 
 <style scoped>

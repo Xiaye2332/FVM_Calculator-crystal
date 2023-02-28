@@ -315,15 +315,15 @@ const options = [
   },
   {
     value: 1.2,
-    label: '1级四叶草 [1.2]',
+    label: '1级四叶草',
   },
   {
     value: 1.4,
-    label: '2级四叶草 [1.4]',
+    label: '2级四叶草',
   },
   {
     value: 1.7,
-    label: '3级四叶草 [1.7]',
+    label: '3级四叶草',
   },
   {
     value: 2.0,
@@ -575,7 +575,7 @@ function ShowResult(d, normal, abnormal, clovers, cloverss, cloversss, cloverssr
     pointcost.value = "0";
     document.getElementById("D").style.visibility = "visible";
   }
-  success("计算成功", "当前版本RC1.0");
+  success("计算成功", "当前版本v1.3<br>如果你有任何问题或建议<br>请参加我们的<a href=\"https://survey.xiayeqz.com:3999/s/QEFoBL\" style=\"text-decoration: none;color: #409EFF\" target=\"_blank\">问卷调查</a></strong>");
 }
 
 function rateCalculate(mainstar) {
